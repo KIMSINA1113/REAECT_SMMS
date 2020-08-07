@@ -6,46 +6,14 @@ import './Register.css'
 class Register extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            address: "",
-            zoneCode : "",
-            fullAddress : "",
-            isDaumPost : false,
-            isRegister : false,
-            register: [],
-        }
     }
-
-    handleOpenPost = () => {
-        this.setState({
-            isDaumPost : true
-        })
-    }
-
-    // postcode
-    handleAddress = (data) => {
-        let AllAddress = data.address;
-        let extraAddress = ''; 
-        let zoneCodes = data.zonecode;
-        
-        if (data.addressType === 'R') {
-          if (data.bname !== '') {
-            extraAddress += data.bname;
-          }
-          if (data.buildingName !== '') {
-            extraAddress += (extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName);
-          }
-          AllAddress += (extraAddress !== '' ? ` (${extraAddress})` : '');
-        }
-        this.setState ({
-            fullAddress: AllAddress,
-            zoneCode : zoneCodes
-        })
-      }
 
     render() {
-        const { isModalShow, isModalClose } = this.props;
-        const { name, address, isDaumPost, fullAddress, zoneCode, isRegister } = this.state;
+        const { isModalShow, isModalClose, parameters } = this.props
+        const { handleCompanyNm, handleZoneCode, handleAddress, handleFullAddress } = this.props;
+        const { handlePhone1, handlePhone2, handlePhone3 } = this.props;
+        const { handleWarrantyNm } = this.props;
+        const { addRegister, removeRegister } = this.props;
         // DaumPostCode style
         const width = 595;
         const height = 450;
@@ -61,50 +29,92 @@ class Register extends Component {
             <div className="Form">
             <div className="title">업체 등록</div>
             <div className="register-form">
-                <div class="box">
+                <div className="box">
                     <div className="sub-title">업체명</div>
-                    <input type="text"></input>
+                    <input 
+                        type="text" 
+                        value={parameters.companyNm}
+                        onChange={handleCompanyNm}></input>
                 </div>
-                <div class="box">
+                <div className="box">
                     <div className="modalRow">
                         <div className="modalCell cellTit">
                             <div className="sub-title">주소</div>
                         </div>
                         <div className="modalCell">
                             <div className="cellFirst">
-                                <div className="zipCode">{zoneCode}</div>
+                                <div className="zipCode">{parameters.zoneCode}</div>
                                 <button type="button" className="postcode" onClick={this.handleOpenPost} >
                                     <span>우편번호 찾기</span>
                                 </button>
                             </div>
                             {
-                                isDaumPost ?
+                                parameters.isDaumPost ?
                                     <DaumPostCode
                                         onComplete={this.handleAddress}
                                         autoClose
                                         width={width}
                                         height={height}
                                         style={modalStyle}
-                                        isDaumPost={isDaumPost}
+                                        isdaumpost={parameters.isDaumPost}
                                         />
                                 : null
                             }
-                            <div className="address">{fullAddress}</div>
-                            <input type="" className="addressBox"/>
+                            <div className="address">{parameters.sfullAddress}</div>
+                            <input 
+                                type="" 
+                                className="addressBox" 
+                                value={parameters.address}
+                                onChange={handleAddress}/>
                         </div>
                     </div>
                 </div>
-                <div class="box">
+                <div className="box">
                     <div className="sub-title">전화번호</div>
-                    <input type="text" className="phone"></input>
-                    <input type="text" className="phone" maxLength="4"></input>
-                    <input type="text" className="phone" maxLength="4"></input>
+                    <input 
+                        type="text" 
+                        className="phone"
+                        value={parameters.phone1}
+                        onChange={handlePhone1}></input>
+                    <input
+                        type="text" 
+                        className="phone" 
+                        maxLength="4"
+                        value={parameters.phone2}
+                        onChange={handlePhone2}></input>
+                    <input 
+                        type="text" 
+                        className="phone" 
+                        maxLength="4"
+                        value={parameters.phone3}
+                        onChange={handlePhone3}></input>
+                </div>
+
+                <div className="box">
+                    <div className="sub-title">
+                        담보물 등록 
+                        <button className="plusbtn" onClick={()=>addRegister()}>추가하기</button>
+                    </div>
+                    {
+                        parameters.register.map((data) => (
+                            <div className="plus-form">
+                                <input 
+                                    type="text" 
+                                    className="plusdambo"
+                                    id = {data.key}
+                                    value={data.warranty_nm}
+                                    onChange={handleWarrantyNm}></input>
+                                <button className="deleteBtn" onClick={()=>removeRegister(data.key)}>삭제하기</button>
+                            </div>
+                        ))
+                    }
+                    
                 </div>
                 
-                <div class="box">
-                    <div className="label-count">총 등록한 담보물은 <span>8</span>개 입니다.</div>
+                <div className="box">
+                    <div className="label-count">총 등록한 담보물은 <span>{parameters.register.length}</span>개 입니다.</div>
                 </div>
-                <div class="box" style={{textAlign:"center"}}>
+                <div className="box" style={{textAlign:"center"}}>
                     <button className="success-btn">등록 완료</button>
                 </div>
             </div>
@@ -115,17 +125,3 @@ class Register extends Component {
 
 export default Register;
 
-/*<div class="box">
-                    <div className="sub-title">담보물 등록 <button className="plusbtn" onClick="plus-dambo">추가하기</button></div>
-                    <div class="plus-form">
-                        <input type="text" className="plusdambo"></input>
-                        <button className="deleteBtn">삭제하기</button>
-                    </div>
-                    <div class="plus-form">
-                        <input type="text" className="plusdambo"></input>
-                        <button className="deleteBtn">삭제하기</button>
-                    </div>
-                </div>
-
-                
-                */

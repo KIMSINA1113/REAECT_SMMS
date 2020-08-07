@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Header } from './components';
-import { Listcontainer } from './container';
+//import { Listcontainer } from './container';
 //import { Maincontainer } from './container';
-//import { Registercontainer, Listcontainer } from './container';
+import { Registercontainer, Listcontainer } from './container';
 
 
 
@@ -11,7 +11,7 @@ class App extends Component {
         return (
             <div>
                 <Header/>
-                <Listcontainer/>
+                <Registercontainer/>
             </div>
         );
     }
