@@ -1,0 +1,10 @@
+.ui.table{
+    text-align: center !important;
+    float:left;
+    margin-top:50px !important;
+}
+
+.ui.right.floated.menu{
+    float:none !important;
+    text-align: center !important;
+}

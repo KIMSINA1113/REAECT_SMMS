@@ -1,0 +1,25 @@
+.Dambo-wrap{
+    border:0.5px solid #cccccc;
+    width:69.5%;
+    height:800px;
+    float:right;
+    margin-left:5px;
+}
+
+.Dambo-wrap .title{
+    width:100%;
+    font-size:1rem;
+    background-color:#8EA6BE;
+    padding:10px 0;
+}
+
+.Dambo-box{
+    width:95%;
+    height:150px;
+    border-radius: 5px;
+    border:1px solid #cccccc;
+    margin:10px auto;
+    padding:60px 60px;
+    text-align: center;
+    cursor: pointer;
+}

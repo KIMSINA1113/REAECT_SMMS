@@ -1,0 +1,24 @@
+.Company-wrap{
+    border:0.5px solid #cccccc;
+    width:30%;
+    height:800px;
+    float:left;
+}
+
+.Company-wrap .title{
+    width:100%;
+    font-size:1rem;
+    background-color:#8EA6BE;
+    padding:10px 0;
+}
+
+.Comapany-box{
+    width:95%;
+    height:70px;
+    border-radius: 5px;
+    border:1px solid #cccccc;
+    margin:10px auto;
+    padding:23px 50px;
+    text-align: center;
+    cursor: pointer;
+}
